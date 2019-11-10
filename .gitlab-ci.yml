@@ -16,8 +16,7 @@ pages:
     - mkdir -p ./public
     - "echo \"User-Agent: *\nDisallow: /\" > ./public/robots.txt"
     - helm package charts/* --destination ./public
-    - helm repo index --url https://${CI_PROJECT_NAMESPACE}.gitlab.io/${CI_PROJECT_NAME} .
-    - mv index.yaml ./public
+    - cd ./public && helm repo index --url https://${CI_PROJECT_NAMESPACE}.gitlab.io/${CI_PROJECT_NAME} .
   artifacts:
     paths:
       - public
