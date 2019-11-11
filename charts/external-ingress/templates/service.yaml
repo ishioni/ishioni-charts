@@ -9,5 +9,4 @@ spec:
   externalName: {{ .Values.service.target }}
   ports:
   - port: {{ .Values.service.port }}
-    targetPort: {{ .Values.service.targetPort }}
     protocol: {{ .Values.service.protocol }}

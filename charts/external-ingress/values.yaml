@@ -3,7 +3,6 @@
 service:
   target: some-service.namespace
   port: 80
-  targetPort: 80
   protocol: TCP
 
 ingress:
