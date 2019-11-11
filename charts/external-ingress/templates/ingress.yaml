@@ -1,0 +1,19 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "external-ingress.fullname" . }}
+  labels:
+{{ include "external-ingress.labels" . | indent 4 }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+spec:
+  rules:
+  - host: {{ .Values.ingress.hostname }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ include "external-ingress.fullname" . }}
+          servicePort: {{ .Values.service.port }}
+{{- end -}}

@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "external-ingress.fullname" . }}
+  labels:
+{{ include "external-ingress.labels" . | indent 4 }}
+spec:
+  type: ExternalName
+  externalName: {{ .Values.service.target }}
+  ports:
+  - port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+    protocol: {{ .Values.service.protocol }}
