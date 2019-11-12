@@ -15,7 +15,7 @@ pages:
     - helm init --client-only
     - mkdir -p ./public
     - "echo \"User-Agent: *\nDisallow: /\" > ./public/robots.txt"
-    - helm package charts/* --destination ./public
+    - helm package -u charts/* --destination ./public
     - cd ./public && helm repo index --url https://${CI_PROJECT_NAMESPACE}.gitlab.io/${CI_PROJECT_NAME} .
   artifacts:
     paths:
