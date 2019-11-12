@@ -121,6 +121,20 @@ nextcloud:
   #        )
   #      );
 
+nginx:
+  ## You need to set a fpm version of the image for nextcloud if you want to use nginx!
+  enabled: false
+  image:
+    repository: nginx
+    tag: alpine
+
+  config:
+    default: true
+    # custom: |-
+    #     worker_processes  1;..
+
+  resources: {}
+
 internalDatabase:
   enabled: true
   name: nextcloud
