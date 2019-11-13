@@ -17,6 +17,11 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        checksum/phpconfig: {{ include (print $.Template.BasePath "/php-config.yaml") . | sha256sum }}
+        checksum/nginxconfig: {{ include (print $.Template.BasePath "/nginx-config.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
       labels:
         app.kubernetes.io/name: {{ include "nextcloud.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
