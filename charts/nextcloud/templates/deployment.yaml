@@ -20,7 +20,9 @@ spec:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
         checksum/phpconfig: {{ include (print $.Template.BasePath "/php-config.yaml") . | sha256sum }}
+        {{- if .Values.nginx.enabled }}
         checksum/nginxconfig: {{ include (print $.Template.BasePath "/nginx-config.yaml") . | sha256sum }}
+        {{- end }}
         checksum/secret: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
       labels:
         app.kubernetes.io/name: {{ include "nextcloud.name" . }}
