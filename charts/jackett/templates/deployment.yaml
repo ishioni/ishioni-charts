@@ -31,9 +31,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           - name: PUID
-            value: {{ .Values.jackett.PUID }}
+            value: "{{ .Values.jackett.PUID }}"
           - name: PGID
-            value: {{ .Values.jackett.PGID }}
+            value: "{{ .Values.jackett.PGID }}"
           - name: TZ
             value: {{ .Values.jackett.timeZone }}
           {{- if .Values.jackett.runOpts }}
