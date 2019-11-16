@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "transmission.fullname" . }}
+  labels:
+{{ include "transmission.labels" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "transmission.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "transmission.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: PUID
+            value: "{{ .Values.transmission.PUID }}"
+          - name: PGID
+            value: "{{ .Values.transmission.PGID }}"
+          - name: TZ
+            value: {{ .Values.transmission.timeZone }}
+          {{- if .Values.transmission.webHome }}
+          - name: TRANSMISSION_WEB_HOME
+            value: {{ .Values.transmission.webHome }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 9091
+              protocol: TCP
+            - name: utp-tcp
+              containerPort: {{ .Values.service.peerPort.port }}
+              protocol: TCP
+            - name: utp-udp
+              containerPort: {{ .Values.service.peerPort.port }}
+              protocol: UDP
+          livenessProbe:
+            httpGet:
+              path: /transmission/web/
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /transmission/web/
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: transmission-config
+            mountPath: /config
+          - name: transmission-settings
+            mountPath: /config/settings.json
+            subPath: settings.json
+          - name: transmission-data
+            mountPath: /downloads
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+      - name: transmission-config
+      {{- if .Values.persistence.config.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.config.existingClaim }}{{ .Values.persistence.config.existingClaim }}{{- else }}{{ template "transmission.fullname" . }}-config{{- end }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: transmission-data
+      {{- if .Values.persistence.data.enabled }}
+      {{- if ( eq .Values.persistence.data.type "pvc" ) }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.data.existingClaim }}{{ .Values.persistence.data.existingClaim }}{{- else }}{{ template "transmission.fullname" . }}-data{{- end }}
+      {{- end }}
+      {{- if ( eq .Values.persistence.data.type "hostPath" ) }}
+        hostPath:
+          path: {{ .Values.persistence.data.hostPath }}
+          type: {{ .Values.persistence.data.hostPathType }}
+      {{- end }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: transmission-settings
+        configMap:
+          name: {{ template "transmission.fullname" . }}-settings
+          defaultMode: 0666
