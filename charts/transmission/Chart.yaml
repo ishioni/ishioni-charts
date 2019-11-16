@@ -1,5 +1,12 @@
 apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for Kubernetes
 name: transmission
-version: 0.1.1
+version: 0.1.2
+appVersion: "2.94"
+description: A torrent downloader
+keywords:
+  - p2p
+  - torrent
+home: https://transmissionbt.com
+icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+sources:
+- https://github.com/transmission/transmission
