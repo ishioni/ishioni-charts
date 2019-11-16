@@ -22,7 +22,7 @@ persistence:
     enabled: false
     annotations: {}
 
-    ## transmission config dir Persistent Volume Storage Class
+    ## radarr config dir Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
@@ -46,11 +46,11 @@ persistence:
     ## If persistence.data.enabled is true you can choose
     ##   between using a PVC to store your data, or a hostPath
     ## Valid choices are either pvc or hostPath
-    ## If you are planning to integrate transmission with
+    ## If you are planning to integrate radarr with
     ##   other media applications, hostPath is the one you want
     ## Each has different options
     type: "pvc"
-    ## transmission data dir Persistent Volume Storage Class
+    ## radarr data dir Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
