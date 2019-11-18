@@ -85,15 +85,15 @@ spec:
       {{- end }}
       - name: transmission-data
       {{- if .Values.persistence.data.enabled }}
-      {{- if ( eq .Values.persistence.data.type "pvc" ) }}
+        {{- if ( eq .Values.persistence.data.type "pvc" ) }}
         persistentVolumeClaim:
           claimName: {{ if .Values.persistence.data.existingClaim }}{{ .Values.persistence.data.existingClaim }}{{- else }}{{ template "transmission.fullname" . }}-data{{- end }}
-      {{- end }}
-      {{- if ( eq .Values.persistence.data.type "hostPath" ) }}
+        {{- end }}
+        {{- if ( eq .Values.persistence.data.type "hostPath" ) }}
         hostPath:
           path: {{ .Values.persistence.data.hostPath }}
           type: {{ .Values.persistence.data.hostPathType }}
-      {{- end }}
+        {{- end }}
       {{- else }}
         emptyDir: {}
       {{- end }}
