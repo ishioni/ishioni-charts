@@ -52,10 +52,10 @@ data:
       {{- if .Values.mongodb.enabled }}
       mongo:
         url: mongodb://{{ template "authelia.mongodb.fullname" . }}
-        database: {{ .Values.mongodb.mongodbDatabase }}
+        database: authelia
         auth:
-          username: {{ .Values.mongodb.mongodbUsername }}
-          password: {{ .Values.mongodb.mongodbPassword }}
+          username: root
+          password: {{ .Values.mongodb.mongodbRootPassword }}
       {{- else }}
       local:
         path: /var/lib/authelia

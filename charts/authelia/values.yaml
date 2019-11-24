@@ -253,6 +253,4 @@ redis:
 
 mongodb:
   enabled: true
-  mongodbUsername: authelia
-  mongodbPassword: authelia
-  mongodbDatabase: authelia
+  mongodbRootPassword: authelia
