@@ -136,7 +136,7 @@ authelia:
     # The domain to protect.
     # Note: the authenticator must also be in that domain. If empty, the cookie
     # is restricted to the subdomain of the issuer.
-    domain: example.com
+    domain: example.local
 
   regulation:
     # The number of failed login attempts before user is banned.
@@ -170,11 +170,10 @@ authelia:
     #   port: 1025
     #   sender: admin@example.com
 
-# Options for PVC when not using mongodb
+# Options for Authelia PVC (/var/lib/authelia/store) when not using mongoDB
 persistence:
-  # Authelia Data (/var/lib/authelia/store)
   annotations: {}
-  ## nextcloud data Persistent Volume Storage Class
+  ## Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
   ## If undefined (the default) or set to null, no storageClassName spec is
@@ -248,7 +247,7 @@ affinity: {}
 redis:
   enabled: true
   usePassword: false
-  password:
+  password: "authelia"
   cluster:
     enabled: false
 
