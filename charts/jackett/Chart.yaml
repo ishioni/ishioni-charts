@@ -1,7 +1,7 @@
 apiVersion: v1
 name: jackett
-appVersion: "0.12.999"
 version: 1.0.0
+appVersion: "0.12.1035"
 description: A tracker release scraper
 keywords:
   - torrent
