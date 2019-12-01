@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: linuxserver/jackett
-  tag: v0.12.1035-ls46
+  tag: v0.12.1053-ls47
   pullPolicy: IfNotPresent
 
 nameOverride: ""
