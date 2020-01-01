@@ -4,7 +4,7 @@
 
 image:
   repository: linuxserver/sonarr
-  tag: 3.0.3.664-ls157
+  tag: 3.0.3.679-ls163
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
