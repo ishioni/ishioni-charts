@@ -1,7 +1,7 @@
 apiVersion: v1
 name: radarr
-version: 1.0.0
-appVersion: "3.0.0.2290"
+version: 1.1.0
+appVersion: "3.0.0.2432"
 description: A fork of Sonarr to work with movies à la Couchpotato.
 keywords:
   - p2p
