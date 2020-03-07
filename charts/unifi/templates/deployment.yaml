@@ -34,6 +34,43 @@ spec:
       {{- end }}
     spec:
       containers:
+        {{- if .Values.mongodb.enabled }}
+        - name: mongo
+          image: mongo:3.4
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+          - name: mongo
+            containerPort: 27017
+            protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+              - mongo
+              - --eval
+              - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+              - mongo
+              - --eval
+              - "db.adminCommand('ping')"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          resources:
+{{ toYaml .Values.mongodb.resources | indent 12 }}
+          volumeMounts:
+          - name: mongo-data
+            mountPath: /data/db
+            subPath: db
+        {{- end }}
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -97,11 +134,11 @@ spec:
             - name: DB_MONGO_LOCAL
               value: "false"
             - name: DB_MONGO_URI
-              value: "{{ .Values.mongodb.dbUri }}"
+              value: "mongodb://localhost/unifi"
             - name: STATDB_MONGO_URI
-              value: "{{ .Values.mongodb.statDbUri }}"
+              value: "mongodb://localhost/unifi_stat"
             - name: UNIFI_DB_NAME
-              value: "{{ .Values.mongodb.databaseName }}"
+              value: "unifi"
             {{- end }}
           volumeMounts:
             - mountPath: /usr/lib/unifi/data
@@ -126,6 +163,15 @@ spec:
             claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "unifi.fullname" . }}{{- end }}
         {{- else }}
           emptyDir: {}
+        {{ end }}
+        {{- if .Values.mongodb.enabled }}
+        - name: mongo-data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "unifi.fullname" . }}-mongo{{- end }}
+        {{- else }}
+          emptyDir: {}
+        {{ end }}
         {{ end }}
         {{- if .Values.extraConfigFiles }}
         - name: extra-config

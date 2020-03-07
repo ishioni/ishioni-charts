@@ -182,10 +182,8 @@ GID: 999
 
   # define an external mongoDB instead of using the built-in mongodb
 mongodb:
-  enabled: false
-  dbUri: mongodb://mongo/unifi
-  statDbUri: mongodb://mongo/unifi_stat
-  databaseName: unifi
+  enabled: true
+  resources: {}
 
 persistence:
   enabled: true
