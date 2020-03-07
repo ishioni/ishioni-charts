@@ -7,7 +7,7 @@ strategyType: Recreate
 
 image:
   repository: goofball222/unifi
-  tag: 5.12
+  tag: 5.12-alpine
   pullPolicy: IfNotPresent
 
 # If enabled, the controller, discovery, GUI, and STUN services will not be
