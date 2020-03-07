@@ -39,10 +39,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: https-gui
-              containerPort: {{ .Values.guiService.port }}
+              containerPort: 8443
               protocol: TCP
             - name: controller
-              containerPort: {{ .Values.controllerService.port }}
+              containerPort: 8080
               protocol: TCP
             - name: discovery
               containerPort: 10001
@@ -77,43 +77,42 @@ spec:
               scheme: HTTPS
             initialDelaySeconds: 15
           env:
-            - name: UNIFI_HTTP_PORT
-              value: "{{ .Values.controllerService.port }}"
-            - name: UNIFI_HTTPS_PORT
-              value: "{{ .Values.guiService.port }}"
             - name: TZ
               value: "{{ .Values.timezone }}"
             - name: RUNAS_UID0
               value: "{{ .Values.runAsRoot }}"
-            - name: UNIFI_UID
+            - name: PUID
               value: "{{ .Values.UID }}"
-            - name: UNIFI_GID
+            - name: PGID
               value: "{{ .Values.GID }}"
             {{- if .Values.extraJvmOpts }}
             - name: JVM_EXTRA_OPTS
               value: "{{- join " " .Values.extraJvmOpts }}"
             {{- end }}
+            - name: JVM_INIT_HEAP_SIZE
+              value: "{{ .Values.jvmInitHeapSize }}"
+            - name: JVM_MAX_HEAP_SIZE
+              value: "{{ .Values.jvmMaxHeapSize }}"
             {{- if .Values.mongodb.enabled }}
-            - name: DB_URI
+            - name: DB_MONGO_LOCAL
+              value: "false"
+            - name: DB_MONGO_URI
               value: "{{ .Values.mongodb.dbUri }}"
-            - name: STATDB_URI
+            - name: STATDB_MONGO_URI
               value: "{{ .Values.mongodb.statDbUri }}"
-            - name: DB_NAME
+            - name: UNIFI_DB_NAME
               value: "{{ .Values.mongodb.databaseName }}"
             {{- end }}
           volumeMounts:
-            - mountPath: /unifi/data
+            - mountPath: /usr/lib/unifi/data
               name: unifi-data
               subPath: data
-            - mountPath: /unifi/log
+            - mountPath: /usr/lib/unifi/logs
               name: unifi-data
-              subPath: log
-            - mountPath: /unifi/cert
+              subPath: logs
+            - mountPath: /usr/lib/unifi/cert
               name: unifi-data
               subPath: cert
-            - mountPath: /unifi/init.d
-              name: unifi-data
-              subPath: init.d
             {{- if .Values.extraConfigFiles }}
             - name: extra-config
               mountPath: /configmap
