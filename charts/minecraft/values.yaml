@@ -153,7 +153,10 @@ minecraftServer:
 extraEnv: {}
 
 persistence:
-  ## minecraft data Persistent Volume Storage Class
+  enabled: false
+  annotations: {}
+
+  ## minecraft data dir Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
   ## If undefined (the default) or set to null, no storageClassName spec is
@@ -161,10 +164,14 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   # storageClass: "-"
-  dataDir:
-    # Set this to false if you don't care to persist state between restarts.
-    enabled: true
-    Size: 1Gi
+
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.config.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  # existingClaim: data
+
+  accessMode: ReadWriteOnce
+  size: 100Mi
 
 dynmap:
   enabled: false
