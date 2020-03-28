@@ -4,10 +4,7 @@ kind: ConfigMap
 metadata:
   name: {{ template "nextcloud.fullname" . }}-nginxconfig
   labels:
-    app.kubernetes.io/name: {{ include "nextcloud.name" . }}
-    helm.sh/chart: {{ include "nextcloud.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "nextcloud.labels" . | indent 4 }}
 data:
   nginx.conf: |-
 {{- if .Values.nginx.config.default }}
