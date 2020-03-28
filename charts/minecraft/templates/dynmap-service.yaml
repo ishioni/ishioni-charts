@@ -13,5 +13,6 @@ spec:
       protocol: TCP
       name: dynmap
   selector:
-    app: {{ template "minecraft.fullname" . }}
+    app.kubernetes.io/name: {{ include "minecraft.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

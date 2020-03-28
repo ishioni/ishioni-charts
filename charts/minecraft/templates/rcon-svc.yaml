@@ -29,5 +29,6 @@ spec:
     targetPort: rcon
     protocol: TCP
   selector:
-    app: {{ template "minecraft.fullname" . }}
+    app.kubernetes.io/name: {{ include "minecraft.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

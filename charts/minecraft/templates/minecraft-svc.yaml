@@ -28,4 +28,5 @@ spec:
     targetPort: minecraft
     protocol: TCP
   selector:
-    app: {{ template "minecraft.fullname" . }}
+    app.kubernetes.io/name: {{ include "minecraft.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
