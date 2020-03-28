@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "radarr.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-  serviceName: {{ include "radarr.fullname" . }}
+  serviceName: {{ include "radarr.name" . }}
   template:
     metadata:
       labels:

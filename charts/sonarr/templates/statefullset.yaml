@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "sonarr.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-  serviceName: {{ include "sonarr.fullname" . }}
+  serviceName: {{ include "sonarr.name" . }}
   template:
     metadata:
       labels:
