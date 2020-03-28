@@ -4,10 +4,7 @@ kind: Service
 metadata:
   name: "{{ template "minecraft.fullname" . }}-rcon"
   labels:
-    app: {{ template "minecraft.fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
+{{ include "minecraft.labels" . | indent 4 }}
 spec:
 {{- if (or (eq .Values.minecraftServer.rcon.serviceType "ClusterIP") (empty .Values.minecraftServer.rcon.serviceType)) }}
   type: ClusterIP

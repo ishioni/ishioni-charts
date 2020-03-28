@@ -10,10 +10,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    app: {{ template "minecraft.fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
+{{ include "minecraft.labels" . | indent 4 }}
   {{- with .Values.dynmap.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
