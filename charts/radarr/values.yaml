@@ -4,7 +4,7 @@
 
 image:
   repository: linuxserver/radarr
-  tag: 3.0.0.2712-ls11
+  tag: 3.0.0.2741-ls2
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
