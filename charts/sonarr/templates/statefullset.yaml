@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "sonarr.fullname" . }}
+  labels:
+{{ include "sonarr.labels" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "sonarr.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  serviceName: {{ include "sonarr.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "sonarr.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "sonarr.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: PUID
+            value: "{{ .Values.sonarr.PUID }}"
+          - name: PGID
+            value: "{{ .Values.sonarr.PGID }}"
+          - name: TZ
+            value: {{ .Values.sonarr.timeZone }}
+          {{- if .Values.sonarr.umask }}
+          - name: UMASK_SET
+            value: {{ .Values.sonarr.umask }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 8989
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: config
+            mountPath: /config
+          - name: data
+            mountPath: /media
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+      {{- if not .Values.persistence.config.enabled }}
+      - name: config
+        emptyDir: {}
+      {{- end }}
+      {{- if ( and .Values.persistence.config.enabled .Values.persistence.config.existingClaim ) }}
+      - name: config
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.config.existingClaim }}
+      {{- end }}
+      {{- if not .Values.persistence.data.enabled }}
+      - name: data
+        emptyDir: {}
+      {{- else if .Values.persistence.data.enabled }}
+      {{- if (and ( eq .Values.persistence.data.type "pvc" ) .Values.persistence.data.existingClaim ) }}
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.data.existingClaim}}
+      {{- end }}
+      {{- if ( eq .Values.persistence.data.type "hostPath" ) }}
+      - name: data
+        hostPath:
+          path: {{ .Values.persistence.data.hostPath }}
+          type: {{ .Values.persistence.data.hostPathType }}
+      {{- end }}
+      {{- end }}
+  volumeClaimTemplates:
+  {{- if and .Values.persistence.config.enabled ( not .Values.persistence.config.existingClaim ) }}
+  - metadata:
+      name: config
+      labels:
+        app.kubernetes.io/name: {{ include "sonarr.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- if .Values.persistence.config.annotations  }}
+      annotations:
+    {{ toYaml .Values.persistence.config.annotations | indent 4 }}
+    {{- end }}
+    spec:
+      accessModes: [ {{ .Values.persistence.config.accessMode | quote }} ]
+      resources:
+        requests:
+          storage: {{ .Values.persistence.config.size | quote }}
+      {{- if .Values.persistence.config.storageClass }}
+      {{- if (eq "-" .Values.persistence.config.storageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: {{ .Values.persistence.config.storageClass | quote }}
+      {{- end }}
+      {{- end }}
+  {{- end }}
+  {{- if and .Values.persistence.data.enabled ( not .Values.persistence.data.existingClaim ) ( eq .Values.persistence.data.type "pvc" ) }}
+  - metadata:
+      name: data
+      labels:
+        app.kubernetes.io/name: {{ include "sonarr.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- if .Values.persistence.data.annotations  }}
+      annotations:
+    {{ toYaml .Values.persistence.data.annotations | indent 4 }}
+    {{- end }}
+    spec:
+      accessModes: [ {{ .Values.persistence.data.accessMode | quote }} ]
+      resources:
+        requests:
+          storage: {{ .Values.persistence.data.size | quote }}
+      {{- if .Values.persistence.data.storageClass }}
+      {{- if (eq "-" .Values.persistence.data.storageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: {{ .Values.persistence.data.storageClass | quote }}
+      {{- end }}
+      {{- end }}
+  {{- end }}
