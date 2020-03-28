@@ -2,9 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# upgrade strategy type (e.g. Recreate or RollingUpdate)
-strategyType: Recreate
-
 image:
   repository: goofball222/unifi
   tag: 5.12-alpine
@@ -184,9 +181,27 @@ GID: 999
 mongodb:
   enabled: true
   resources: {}
+  persistence:
+    enabled: true
+    annotations: {}
+    ## mongo data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+    ##
+    ## If you want to reuse an existing claim, you can pass the name of the PVC using
+    ## the existingClaim variable
+    # existingClaim: mongo-data
+    accessMode: ReadWriteOnce
+    size: 5Gi
 
 persistence:
   enabled: true
+  annotations: {}
   ## unifi data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -198,7 +213,7 @@ persistence:
   ##
   ## If you want to reuse an existing claim, you can pass the name of the PVC using
   ## the existingClaim variable
-  # existingClaim: your-claim
+  # existingClaim: unifi-data
   accessMode: ReadWriteOnce
   size: 5Gi
 
