@@ -4,7 +4,7 @@
 
 image:
   repository: linuxserver/transmission
-  tag: 2.94-r2-ls43
+  tag: 2.94-r2-ls46
   pullPolicy: IfNotPresent
 
 nameOverride: ""
