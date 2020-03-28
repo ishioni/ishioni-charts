@@ -34,7 +34,7 @@ persistence:
     ## A manually managed Persistent Volume and Claim
     ## Requires persistence.config.enabled: true
     ## If defined, PVC must be created manually before volume will be bound
-    # existingClaim:
+    # existingClaim: config
 
     accessMode: ReadWriteOnce
     size: 100Mi
@@ -63,7 +63,7 @@ persistence:
     ## Requires persistence.data.enabled: true and
     ## persistence.data.type: "pvc"
     ## If defined, PVC must be created manually before volume will be bound
-    # existingClaim:
+    # existingClaim: data
 
     ## Host path for persistence.data.type: "hostPath"
     hostPath: "/media/data"
