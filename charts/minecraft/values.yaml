@@ -36,6 +36,7 @@ readinessProbe:
     - status
   initialDelaySeconds: 30
   periodSeconds: 5
+
 minecraftServer:
   # This must be overridden, since we can't accept this for the user.
   eula: "FALSE"
@@ -127,6 +128,7 @@ minecraftServer:
   jvmXXOpts: ""
   serviceType: LoadBalancer
   loadBalancerIP:
+  serverPort: 25565
   # loadBalancerSourceRanges: []
   ## Set the externalTrafficPolicy in the Service to either Cluster or Local
   # externalTrafficPolicy: Cluster
