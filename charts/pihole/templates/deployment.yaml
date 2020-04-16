@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pihole.fullname" . }}
+  labels:
+{{ include "pihole.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+{{- if .Values.strategy }}
+  strategy:
+{{ toYaml .Values.strategy | indent 4 }}
+{{ if eq .Values.strategy.type "Recreate" }}
+    rollingUpdate: null
+{{- end }}
+{{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "pihole.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        app.kubernetes.io/name: {{ include "pihole.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      hostAliases:
+      - ip: 127.0.0.1
+        hostnames:
+        - pi.hole
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- if .Values.pihole.serverIP }}
+          - name: ServerIP
+            value: {{ .Values.pihole.serverIP | quote }}
+          {{- end }}
+          - name: TZ
+            value: {{ .Values.pihole.tz | quote }}
+          - name: DNS1
+            value: {{ required "You need to set DNS upstream here, the container will reset your settings" .Values.pihole.dns1 | quote }}
+          - name: DNS2
+            value: {{ required "You need to set DNS upstream here, the container will reset your settings" .Values.pihole.dns2 | quote }}
+          {{- if .Values.pihole.password }}
+          - name: WEBPASSWORD
+            value: {{ .Values.pihole.password | quote }}
+          {{- end }}
+          {{- if .Values.pihole.vhost }}
+          - name: VIRTUAL_HOST
+            value: {{ .Values.pihole.vhost | quote }}
+          {{- end }}
+          ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+          - name: https
+            containerPort: 443
+            protocol: TCP
+          - name: dnstcp
+            containerPort: 53
+            protocol: TCP
+          - name: dnsudp
+            containerPort: 53
+            protocol: UDP
+          volumeMounts:
+          - name: data
+            mountPath: /etc/pihole
+            subPath: pihole
+          - name: data
+            mountPath: /etc/dnsmasq.d
+            subPath: dnsmasq.d
+          - mountPath: "/etc/dnsmasq.d/05-custom.conf"
+            name: config
+            subPath: 05-custom.conf
+          {{- if and (.Values.pihole.whitelist) (gt (len .Values.pihole.whitelist) 0) }}
+          - mountPath: "/etc/pihole/whitelist.txt"
+            name: config
+            subPath: whitelist.txt
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.dns.config }}
+      dnsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.dns.policy }}
+      dnsPolicy: {{ .Values.dns.policy }}
+      {{- end }}
+      hostAliases:
+      - ip: 127.0.0.1
+        hostnames:
+        - pi.hole
+      volumes:
+      - name: config
+        configMap:
+          name: {{ template "pihole.fullname" . }}
+      - name: data
+        {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "pihole.fullname" . }}{{- end }}
+        {{- else }}
+        emptyDir: {}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
