@@ -37,6 +37,9 @@ spec:
         - name: mongo
           image: mongo:3.4
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+          - --wiredTigerCacheSizeGB
+          - {{ .Values.mongodb.cacheSizeGB | quote }}
           ports:
           - name: mongo
             containerPort: 27017

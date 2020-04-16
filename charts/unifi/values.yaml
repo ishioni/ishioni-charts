@@ -180,6 +180,7 @@ GID: 999
   # define an external mongoDB instead of using the built-in mongodb
 mongodb:
   enabled: true
+  cacheSizeGB: 1.0
   resources: {}
   persistence:
     enabled: true
