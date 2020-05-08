@@ -77,17 +77,23 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: https-gui
-              containerPort: 8443
+            - name: stun
+              containerPort: 3478
+              protocol: UDP
+            - name: syslog
+              containerPort: 5514
+              protocol: TCP
+            - name: speedtest
+              containerPort: 6789
               protocol: TCP
             - name: controller
               containerPort: 8080
               protocol: TCP
+            - name: https-gui
+              containerPort: 8443
+              protocol: TCP
             - name: discovery
               containerPort: 10001
-              protocol: UDP
-            - name: stun
-              containerPort: 3478
               protocol: UDP
               {{ if .Values.captivePortalService.enabled }}
             - name: captive-http
