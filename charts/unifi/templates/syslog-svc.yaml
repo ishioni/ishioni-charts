@@ -43,7 +43,7 @@ spec:
   ports:
     - port: {{ .Values.syslogService.port }}
       targetPort: syslog
-      protocol: TCP
+      protocol: UDP
       name: syslog
 {{ if (and (eq .Values.syslogService.type "NodePort") (not (empty .Values.syslogService.nodePort))) }}
       nodePort: {{.Values.syslogService.nodePort}}
