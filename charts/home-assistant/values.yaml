@@ -205,6 +205,10 @@ monitoring:
     # telemetryPath: /metrics
     # Set labels for the ServiceMonitor, use this to define your scrape label for Prometheus Operator
     # labels:
+    # Set bearerTokenFile for home assistant auth (use long lived access tokens)
+    # bearerTokenFile:
+    # Set bearerTokenSecret for home assistant auth (use long lived access tokens)
+    # bearerTokenSecret:
 
 vscode:
   enabled: false
