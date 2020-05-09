@@ -83,9 +83,6 @@ spec:
             - name: syslog
               containerPort: 5514
               protocol: UDP
-            - name: speedtest
-              containerPort: 6789
-              protocol: TCP
             - name: controller
               containerPort: 8080
               protocol: TCP
