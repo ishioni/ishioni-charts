@@ -1,0 +1,4 @@
+apiVersion: v1
+name: cert-manager-cluster-issuer
+version: 1.0.0
+description: Cluster Issuer for cert-manger

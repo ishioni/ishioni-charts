@@ -1,0 +1,9 @@
+{{- range $ci := .Values.clusterIssuers }}
+---
+apiVersion: cert-manager.io/v1alpha3
+kind: ClusterIssuer
+metadata:
+  name: {{ $ci.name }}
+spec:
+  {{- $ci.spec | toYaml | nindent 2 }}
+{{- end }}

@@ -1,0 +1,12 @@
+clusterIssuers:
+  - name: letsencrypt-production
+    spec:
+      acme:
+        email: some@address.com
+        server: https://acme-v02.api.letsencrypt.org/directory
+        privateKeySecretRef:
+          name: letsencrypt-production-issuer-account-key
+        solvers:
+        - http01:
+            ingress:
+              class: nginx
