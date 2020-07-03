@@ -123,6 +123,8 @@ spec:
               value: "{{ .Values.timezone }}"
             - name: RUNAS_UID0
               value: "{{ .Values.runAsRoot }}"
+            - name: RUN_CHOWN
+              value: "{{ .Values.runChown }}"
             - name: PUID
               value: "{{ .Values.UID }}"
             - name: PGID
