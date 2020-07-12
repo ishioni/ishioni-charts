@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "valetudo-mapper.fullname" . }}
+  labels:
+{{ include "valetudo-mapper.labels" . | indent 4 }}
+data:
+  config.json: |
+{{- if not .Values.customConfig }}
+    {
+      "mqtt": {
+        "identifier": {{ .Values.config.mqtt.identifier | quote }},
+        "topicPrefix": {{ .Values.config.mqtt.topicPrefix | quote }},
+        "autoconfPrefix": {{ .Values.config.mqtt.autoconfPrefix | quote }},
+        "broker_url": {{ .Values.config.mqtt.brokerUrl | quote }},
+        "caPath": "",
+        "mapDataTopic": {{ .Values.config.mqtt.mapDataTopic | quote }},
+        "minMillisecondsBetweenMapUpdates": {{ .Values.config.mqtt.minMillisecondsBetweenMapUpdates }},
+        "publishMapImage": {{ .Values.config.mqtt.publishMapImage }},
+        "publishMapData": {{ .Values.config.mqtt.publishMapData }}
+      },
+      "mapSettings": {
+        "colors": {
+          "background": "#33a1f5",
+          "background2": "#046cd4",
+          "floor": "#56affc",
+          "obstacle_strong": "#a1dbff",
+          "path": "white",
+          "forbidden_marker": "red",
+          "forbidden_zone": "rgba(255, 0, 0, 0.38)",
+          "cleaned_marker": "rgba(53, 125, 46, 1.0)",
+          "cleaned_zone": "rgba(107, 244, 66, 0.3)",
+          "cleaned_block": "rgba(107, 244, 36, 0.34)"
+        },
+        "drawPath": true,
+        "drawCharger": true,
+        "drawRobot": true,
+        "drawCurrentlyCleanedZones": true,
+        "drawCurrentlyCleanedBlocks": true,
+        "drawForbiddenZones": true,
+        "drawVirtualWalls": true,
+        "scale": 4,
+        "gradientBackground": true,
+        "autoCrop": 20,
+        "crop_x1": 30,
+        "crop_y1": 70,
+        "crop_x2": 440,
+        "crop_y2": 440
+      },
+      "webserver": {
+        {{- if .Values.ingress.enabled }}
+        "enabled": true,
+        {{- else }}
+        "enabled": false,
+        {{- end }}
+        "port": 3000
+      }
+    }
+{{- else }}
+{{ .Values.customConfig | indent 4 }}
+{{- end }}

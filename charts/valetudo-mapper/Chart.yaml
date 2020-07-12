@@ -1,0 +1,16 @@
+apiVersion: v2
+appVersion: 0.2.0
+version: 0.1.0
+name: valetudo-mapper
+description: Create live map data from Valetudo powered robots
+type: application
+keywords:
+  - MQTT
+  - valetudo
+  - iot
+home: https://github.com/rand256/valetudo-mapper
+sources:
+  - https://github.com/rand256/valetudo-mapper
+maintainers:
+  - name: Piotr Maksymiuk
+    email: helm@movishell.pl
