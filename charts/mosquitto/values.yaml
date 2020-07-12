@@ -33,7 +33,7 @@ securityContext: {}
 
 service:
   annotations: {}
-  type: LoadBalancer
+  type: ClusterIP
   # externalTrafficPolicy:
   # loadBalancerIP:
 
@@ -56,7 +56,7 @@ tolerations: []
 affinity: {}
 
 persistence:
-  enabled: true
+  enabled: False
   annotations: {}
   ## mosquitto data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
