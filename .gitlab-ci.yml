@@ -12,7 +12,6 @@ pages:
     entrypoint: ["/bin/sh", "-c"]
   stage: deploy
   script:
-    - helm init --client-only
     - mkdir -p ./public
     - "echo \"User-Agent: *\nDisallow: /\" > ./public/robots.txt"
     - helm package -u charts/* --destination ./public
