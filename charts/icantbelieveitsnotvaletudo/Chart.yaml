@@ -12,5 +12,5 @@ home: https://valetudo.cloud
 sources:
   - https://github.com/Hypfer/ICantBelieveItsNotValetudo
 maintainers:
-  - name: Piotr Maksymiuk
+  - name: ishioni
     email: helm@movishell.pl
