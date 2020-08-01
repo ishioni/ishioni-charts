@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "zigbee2mqtt.fullname" . }}
+  labels:
+{{ include "zigbee2mqtt.labels" . | indent 4 }}
+data:
+  configuration.yaml: |
+{{- with .Values.config }}
+    {{- toYaml . | nindent 4 }}
+{{- end }}
+---
+{{- if .Values.assistant.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "zigbee2mqtt.fullname" . }}assistant
+  labels:
+{{ include "zigbee2mqtt.labels" . | indent 4 }}
+data:
+  TZ: {{ .Values.timezone | quote }}
+  {{- range $key, $val := .Values.assistant.config }}
+  Z2MA_SETTINGS__{{ $key }}: {{ $val | quote }}
+  {{- end }}
+{{- end }}
