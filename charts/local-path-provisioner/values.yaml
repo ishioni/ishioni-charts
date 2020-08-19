@@ -4,14 +4,16 @@ replicaCount: 1
 
 image:
   repository: rancher/local-path-provisioner
-  tag: v0.0.12
+  tag: v0.0.17
   pullPolicy: IfNotPresent
+
+helperImage:
+  repository: busybox
+  tag: latest
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
-debug: false
 
 ## For creating the StorageClass automatically:
 storageClass:
@@ -76,3 +78,18 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+configmap:
+  # specify the config map name
+  name: local-path-config
+  # specify the custom script for setup and teardown
+  setup: |-
+    #!/bin/sh
+    path=$1
+    mkdir -m 0777 -p ${path}
+
+  teardown: |-
+    #!/bin/sh
+    path=$1
+    rm -rf ${path}
+

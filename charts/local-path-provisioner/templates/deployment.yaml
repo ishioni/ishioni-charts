@@ -27,14 +27,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - local-path-provisioner
-            {{- if .Values.debug }}
             - --debug
-            {{- end }}
             - start
             - --config
             - /etc/config/config.json
             - --provisioner-name
             - {{ template "local-path-provisioner.provisionerName" . }}
+            - --helper-image
+            - "{{ .Values.helperImage.repository }}:{{ .Values.helperImage.tag }}"
+            - --configmap-name
+            - {{ .Values.configmap.name }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config/
@@ -46,7 +48,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: {{ include "local-path-provisioner.fullname" . }}
+            name: {{ .Values.configmap.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
