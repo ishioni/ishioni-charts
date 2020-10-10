@@ -43,10 +43,8 @@ service:
   # loadBalancerIP: 10.0.1.69
 
 ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
+  enabled: false
+  annotations: {}
   path: /
   hosts:
     - netdata.k8s.local
