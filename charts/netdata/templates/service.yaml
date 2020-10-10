@@ -7,9 +7,12 @@ metadata:
     chart: {{ template "netdata.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    role: master
+    role: parent
 spec:
   type: {{ .Values.service.type }}
+  {{- if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
@@ -18,4 +21,4 @@ spec:
   selector:
     app: {{ template "netdata.name" . }}
     release: {{ .Release.Name }}
-    role: master
+    role: parent

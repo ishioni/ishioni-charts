@@ -1,9 +1,32 @@
 replicaCount: 1
+deploymentStrategy:
+  type: Recreate
 
 image:
   repository: netdata/netdata
-  tag: v1.18.1
+  tag: "{{ .Chart.AppVersion }}"
   pullPolicy: Always
+
+sd:
+  repository: netdata/agent-sd
+  tag: v0.2.1
+  pullPolicy: Always
+  child:
+    enabled: true
+    configmap:
+      name: netdata-child-sd-config-map
+      key: config.yml
+      # if 'from' is {} the ConfigMap is not generated
+      from:
+        file: sdconfig/child.yml
+        value: {}
+    resources: {}
+    # limits:
+    #  cpu: 50m
+    #  memory: 60Mi
+    # requests:
+    #  cpu: 50m
+    #  memory: 60Mi
 
 sysctlImage:
   enabled: false
@@ -11,10 +34,13 @@ sysctlImage:
   tag: latest
   pullPolicy: Always
   command: []
+  resources: {}
 
 service:
   type: ClusterIP
   port: 19999
+  # Use a static loadBalancerIP. Only to be used with type LoadBalancer
+  # loadBalancerIP: 10.0.1.69
 
 ingress:
   enabled: true
@@ -32,13 +58,13 @@ ingress:
 rbac:
   create: true
   pspEnabled: true
-  
+
 serviceAccount:
   create: true
   name: netdata
 
 
-master:
+parent:
   resources: {}
     # limits:
     #  cpu: 4
@@ -47,13 +73,30 @@ master:
     #  cpu: 4
     #  memory: 4096Mi
 
+  livenessProbe:
+    failureThreshold: 3
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 1
+  readinessProbe:
+    failureThreshold: 3
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 1
+
+  terminationGracePeriodSeconds: 300
+
   nodeSelector: {}
 
   tolerations: []
 
   affinity: {}
 
+  priorityClassName: ""
+
   env: {}
+    # To disable anonymous statistics:
+    # DO_NOT_TRACK: 1
 
   podLabels: {}
 
@@ -128,7 +171,20 @@ master:
         info: random
           to: sysadmin
 
-slave:
+  claiming:
+    enabled: false
+    token: ""
+    rooms: ""
+    url: "https://app.netdata.cloud"
+
+child:
+  enabled: true
+
+  updateStrategy: {}
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxUnavailable: 1
+
   resources: {}
     # limits:
     #  cpu: 4
@@ -136,6 +192,19 @@ slave:
     # requests:
     #  cpu: 4
     #  memory: 4096Mi
+
+  livenessProbe:
+    failureThreshold: 3
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 1
+  readinessProbe:
+    failureThreshold: 3
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 1
+
+  terminationGracePeriodSeconds: 30
 
   nodeSelector: {}
 
@@ -145,12 +214,16 @@ slave:
 
   affinity: {}
 
+  priorityClassName: ""
+
   podLabels: {}
 
   podAnnotationAppArmor:
     enabled: true
 
   podAnnotations: {}
+
+  persistUniqueID: true
 
   configs:
     netdata:
@@ -173,14 +246,13 @@ slave:
           buffer size bytes = 1048576
           reconnect delay seconds = 5
           initial clock resync iterations = 60
-    coredns:
+    go.d:
       enabled: true
-      path: /etc/netdata/go.d/coredns.conf
+      path: /etc/netdata/go.d.conf
       data: |
-        update_every: 1
-        autodetection_retry: 0
-        jobs:
-          - url: http://127.0.0.1:9153/metrics
+        modules:
+          pulsar: no
+          prometheus: yes
     kubelet:
       enabled: true
       path: /etc/netdata/go.d/k8s_kubelet.conf
@@ -189,6 +261,8 @@ slave:
         autodetection_retry: 0
         jobs:
           - url: http://127.0.0.1:10255/metrics
+          - url: https://localhost:10250/metrics
+            tls_skip_verify: yes
     kubeproxy:
       enabled: true
       path: /etc/netdata/go.d/k8s_kubeproxy.conf
@@ -199,4 +273,5 @@ slave:
           - url: http://127.0.0.1:10249/metrics
 
   env: {}
-
+    # To disable anonymous statistics:
+    # DO_NOT_TRACK: 1
