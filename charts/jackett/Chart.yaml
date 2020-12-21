@@ -1,8 +1,9 @@
-apiVersion: v1
+apiVersion: v2
 name: jackett
-version: 2.0.1
-appVersion: "0.14.303"
+type: application
 description: A tracker release scraper
+appVersion: v0.17.145-ls11
+version: 2.1.0
 keywords:
   - torrent
   - p2p
@@ -10,3 +11,6 @@ home: https://github.com/Jackett/Jackett
 icon: https://raw.githubusercontent.com/Jackett/Jackett/master/src/Jackett.Server/jackett.ico
 sources:
   - https://github.com/Jackett/Jackett
+maintainers:
+  - name: ishioni
+    email: helm@movishell.pl

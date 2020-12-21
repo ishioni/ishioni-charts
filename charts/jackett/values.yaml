@@ -6,7 +6,8 @@ replicaCount: 1
 
 image:
   repository: linuxserver/jackett
-  tag: v0.14.303-ls59
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   pullPolicy: IfNotPresent
 
 nameOverride: ""
