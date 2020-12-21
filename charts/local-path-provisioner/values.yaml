@@ -4,7 +4,8 @@ replicaCount: 1
 
 image:
   repository: rancher/local-path-provisioner
-  tag: v0.0.17
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   pullPolicy: IfNotPresent
 
 helperImage:
@@ -92,4 +93,3 @@ configmap:
     #!/bin/sh
     path=$1
     rm -rf ${path}
-
