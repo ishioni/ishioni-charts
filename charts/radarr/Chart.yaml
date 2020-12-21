@@ -1,8 +1,9 @@
-apiVersion: v1
+apiVersion: v2
 name: radarr
-version: 2.0.0
-appVersion: "3.0.0.2741"
+type: application
 description: A fork of Sonarr to work with movies à la Couchpotato.
+appVersion: 3.0.1.4259-ls88
+version: 2.2.0
 keywords:
   - p2p
   - movies
@@ -10,3 +11,6 @@ home: https://radarr.video
 icon: https://raw.githubusercontent.com/Radarr/Radarr/aphrodite/Logo/256.png
 sources:
 - https://github.com/Radarr/Radarr
+maintainers:
+  - name: ishioni
+    email: helm@movishell.pl

@@ -4,7 +4,8 @@
 
 image:
   repository: linuxserver/radarr
-  tag: 3.0.0.2741-ls2
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
