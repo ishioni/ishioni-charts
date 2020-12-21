@@ -52,12 +52,13 @@ ingress:
   #    location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
   #      deny all;
   #    }
-  #  tls:
-  #    - secretName: nextcloud-tls
-  #      hosts:
-  #        - nextcloud.kube.home
-  labels: {}
-
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  # - secretName: chart-example-tls
+  #   hosts:
+  #     - chart-example.local
 
 # Allow configuration of lifecycle hooks
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
