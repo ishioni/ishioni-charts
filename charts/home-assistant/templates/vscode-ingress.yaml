@@ -37,7 +37,7 @@ spec:
             pathType: Prefix
             {{- end }}
             backend:
-            {- if eq (include "home-assistant.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+            {{- if eq (include "home-assistant.ingress.apiVersion" $) "networking.k8s.io/v1" }}
               service:
                 name: {{ $fullName }}
                 port:
