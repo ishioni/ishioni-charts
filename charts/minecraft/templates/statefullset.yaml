@@ -28,7 +28,7 @@ spec:
         fsGroup: {{ .Values.securityContext.fsGroup }}
       containers:
       - name: {{ template "minecraft.fullname" . }}
-        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        image: "{{ .Values.image }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: Always
         resources:
 {{ toYaml .Values.resources | indent 10 }}

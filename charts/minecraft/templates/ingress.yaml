@@ -1,11 +1,7 @@
 {{- if .Values.dynmap.enabled -}}
 {{- $fullName := include "minecraft.fullname" . -}}
 {{- $svcPort := "dynmap" -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
+apiVersion: {{ include "minecraft.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -33,9 +29,19 @@ spec:
         paths:
         {{- range .paths }}
           - path: {{ . }}
+            {{- if eq (include "minecraft.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+            pathType: Prefix
+            {{- end }}
             backend:
+            {{- if eq (include "minecraft.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+              service:
+                name: {{ $fullName }}-dynmap
+                port:
+                  number: {{ $svcPort }}
+            {{- else }}
               serviceName: {{ $fullName }}-dynmap
               servicePort: {{ $svcPort }}
+            {{- end }}
         {{- end }}
   {{- end }}
 {{- end }}

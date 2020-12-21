@@ -1,6 +1,7 @@
 # ref: https://hub.docker.com/r/itzg/minecraft-server/
 image: itzg/minecraft-server
-imageTag: latest
+# Overrides the image tag whose default is the chart appVersion.
+imageTag: ""
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -41,7 +42,7 @@ minecraftServer:
   # This must be overridden, since we can't accept this for the user.
   eula: "FALSE"
   # One of: LATEST, SNAPSHOT, or a specific version (ie: "1.7.9").
-  version: "1.15.2"
+  version: "1.11.0"
   # This can be one of "VANILLA", "FORGE", "SPIGOT", "BUKKIT", "PAPER", "FTB", "SPONGEVANILLA"
   type: "VANILLA"
   # If type is set to FORGE, this sets the version; this is ignored if forgeInstallerUrl is set
