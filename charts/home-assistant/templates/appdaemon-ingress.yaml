@@ -2,7 +2,7 @@
 {{- $fullName := include "home-assistant.fullname" . -}}
 {{- $servicePort := .Values.appdaemon.service.port -}}
 {{- $ingressPath := .Values.appdaemon.ingress.path -}}
-apiVersion: extensions/v1beta1
+apiVersion: {{ include "home-assistant.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}-appdaemon
@@ -32,8 +32,18 @@ spec:
       http:
         paths:
           - path: {{ $ingressPath }}
+            {{- if eq (include "home-assistant.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+            pathType: Prefix
+            {{- end }}
             backend:
+            {{- if eq (include "home-assistant.ingress.apiVersion" $) "networking.k8s.io/v1" }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $servicePort }}
+            {{- else }}
               serviceName: {{ $fullName }}
               servicePort: {{ $servicePort }}
+            {{- end }}
   {{- end }}
 {{- end }}

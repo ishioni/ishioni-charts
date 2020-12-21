@@ -1,8 +1,9 @@
-apiVersion: v1
-appVersion: 0.108.7
-description: Home Assistant
+apiVersion: v2
 name: home-assistant
-version: 0.13.2
+type: application
+description: Home Assistant
+appVersion: 2020.12.1
+version: 0.14.0
 keywords:
 - home-assistant
 - hass
@@ -18,3 +19,5 @@ maintainers:
   email: jeff@billimek.com
 - name: runningman84
   email: philipp.hellmich@bertelsmann.de
+- name: ishioni
+  email: helm@movishell.pl

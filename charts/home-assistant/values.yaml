@@ -4,7 +4,8 @@
 
 image:
   repository: homeassistant/home-assistant
-  tag: 0.108.7
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   pullPolicy: IfNotPresent
   pullSecrets: []
 
@@ -120,7 +121,7 @@ git:
   ##
   image:
     repository: causticlab/hass-configurator-docker
-    tag: 0.3.5-x86_64
+    tag: 0.4.0-x86_64
     pullPolicy: IfNotPresent
 
   ## Specify the command that runs in the git-sync container to pull in configuration.
