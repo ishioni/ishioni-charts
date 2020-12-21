@@ -4,7 +4,8 @@
 
 image:
   repository: linuxserver/transmission
-  tag: 2.94-r2-ls46
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   pullPolicy: IfNotPresent
 
 nameOverride: ""
