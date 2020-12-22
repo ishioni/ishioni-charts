@@ -16,9 +16,6 @@ jobs:
         with:
           version: v3.4.2
 
-      - name: Helm lint
-        run: helm lint charts/*
-
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
@@ -38,7 +35,7 @@ jobs:
           if [[ $(grep -E "^charts/common(-test)?$" <<< "$changed_unfiltered") ]]; then
             echo "::set-output name=common::true"
           fi
-      
+
       - name: Run chart-testing (lint)
         id: lint
         run: ct lint --config .github/ct.yaml --excluded-charts ""
