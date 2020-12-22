@@ -26,7 +26,7 @@
   {{- range $host := .Values.ingress.hosts }}
   nginx:
     nginx.ingress.kubernetes.io/auth-url: "https://{{ $svcName }}.{{ $svcNamespace }}/api/verify"
-    nginx.ingress.kubernetes.io/auth-signin: "https://{{ $host.host }}/#/"
+    nginx.ingress.kubernetes.io/auth-signin: "https://{{ $host.host }}//"
   traefik:
     ingress.kubernetes.io/auth-type: forward
     ingress.kubernetes.io/auth-url: http://{{ $svcName }}.{{ $svcNamespace }}/api/verify?rd=https://{{ $host.host }}?rd=https://example.com/%23/

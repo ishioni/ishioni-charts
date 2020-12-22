@@ -1,0 +1,6 @@
+remote: origin
+target-branch: master
+helm-extra-args: --timeout 600s
+lint-conf: .github/lintconf.yaml
+chart-dirs:
+  - charts
