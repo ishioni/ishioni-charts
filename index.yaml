@@ -1,0 +1,341 @@
+apiVersion: v1
+entries:
+  authelia:
+  - apiVersion: v2
+    appVersion: 3.16.2
+    created: "2020-12-22T02:21:33.187612378Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.helm.sh/stable
+      version: ~7.4.6
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.helm.sh/stable
+      version: ~10.0.1
+    description: A full-featured authentication server
+    digest: 325234572be7699c67335955e26d0f4b2fd98280569e8e1be69b8131a794fd47
+    home: https://www.authelia.com
+    icon: https://raw.githubusercontent.com/clems4ever/authelia/master/images/authelia.logo.png
+    keywords:
+    - security
+    - totp
+    - authentication
+    - ldap
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: authelia
+    sources:
+    - https://github.com/clems4ever/authelia
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/authelia-1.0.1/authelia-1.0.1.tgz
+    version: 1.0.1
+  cert-manager-cluster-issuer:
+  - apiVersion: v1
+    created: "2020-12-22T02:21:33.403882128Z"
+    description: Cluster Issuer for cert-manger
+    digest: a21538de023798f0412e1176ffcfef3867025ff621e02ab13752134b968fd296
+    name: cert-manager-cluster-issuer
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/cert-manager-cluster-issuer-1.0.0/cert-manager-cluster-issuer-1.0.0.tgz
+    version: 1.0.0
+  external-ingress:
+  - apiVersion: v2
+    created: "2020-12-22T02:21:33.630859653Z"
+    description: Connect externalName endpoints with your ingress
+    digest: da9cb06039b096f6495d247e1d935d9b309d432d9ec25239ea005684fa519822
+    keywords:
+    - ExternalName
+    - ingress
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: external-ingress
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/external-ingress-1.0.0/external-ingress-1.0.0.tgz
+    version: 1.0.0
+  home-assistant:
+  - apiVersion: v2
+    appVersion: 2020.12.1
+    created: "2020-12-22T02:21:33.840213326Z"
+    description: Home Assistant
+    digest: 0ffc2b9a929a0049c16f65079de0e67289f173c7eef69e622eaab7bc0d8a6ad6
+    home: https://github.com/home-assistant/home-assistant
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Home_Assistant_Logo.svg/519px-Home_Assistant_Logo.svg.png
+    keywords:
+    - home-assistant
+    - hass
+    - homeassistant
+    maintainers:
+    - email: jeff@billimek.com
+      name: billimek
+    - email: philipp.hellmich@bertelsmann.de
+      name: runningman84
+    - email: helm@movishell.pl
+      name: ishioni
+    name: home-assistant
+    sources:
+    - https://github.com/home-assistant/home-assistant
+    - https://github.com/danielperna84/hass-configurator
+    - https://github.com/cdr/code-server
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/home-assistant-0.14.0/home-assistant-0.14.0.tgz
+    version: 0.14.0
+  jackett:
+  - apiVersion: v2
+    appVersion: v0.17.145-ls11
+    created: "2020-12-22T02:21:34.07782858Z"
+    description: A tracker release scraper
+    digest: 2968a3f3f36530ffefa14e49f202a113ba01c0c40b5c14e05cee921f7e8f3497
+    home: https://github.com/Jackett/Jackett
+    icon: https://raw.githubusercontent.com/Jackett/Jackett/master/src/Jackett.Server/jackett.ico
+    keywords:
+    - torrent
+    - p2p
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: jackett
+    sources:
+    - https://github.com/Jackett/Jackett
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/jackett-2.1.0/jackett-2.1.0.tgz
+    version: 2.1.0
+  local-path-provisioner:
+  - apiVersion: v2
+    appVersion: 0.0.19
+    created: "2020-12-22T02:21:34.288837062Z"
+    description: Use HostPath for persistent local storage with Kubernetes
+    digest: c4f470423be3d63e7ed3d21282a05bbd62576f3908d71f7f99aa7ed8d95034a2
+    home: https://github.com/rancher/local-path-provisioner
+    keywords:
+    - storage
+    - hostpath
+    kubeVersion: '>=1.12.0-r0'
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: local-path-provisioner
+    sources:
+    - https://github.com/rancher/local-path-provisioner.git
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/local-path-provisioner-1.0.0/local-path-provisioner-1.0.0.tgz
+    version: 1.0.0
+  metallb:
+  - apiVersion: v2
+    appVersion: v0.9.5
+    created: "2020-12-22T02:21:34.493328082Z"
+    description: A network load-balancer implementation for Kubernetes using standard routing protocols
+    digest: ad53af7b4942608626fd3a0ab62e0329599cb6931aa5c790a894edc0349fefca
+    home: https://metallb.universe.tf
+    icon: https://metallb.universe.tf/images/logo/metallb-white.png
+    name: metallb
+    sources:
+    - https://github.com/metallb/metallb
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/metallb-0.9.6/metallb-0.9.6.tgz
+    version: 0.9.6
+  minecraft:
+  - apiVersion: v2
+    appVersion: 1.11.0
+    created: "2020-12-22T02:21:34.70618441Z"
+    description: Minecraft server
+    digest: 53cbdac879968ba32515bd884eb4c1c20a1527d2c4344ca0f7a9cb8796ed5f55
+    home: https://minecraft.net/
+    keywords:
+    - game
+    - server
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: minecraft
+    sources:
+    - https://hub.docker.com/r/itzg/minecraft-server/~/dockerfile/
+    - https://github.com/itzg/dockerfiles
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/minecraft-2.1.0/minecraft-2.1.0.tgz
+    version: 2.1.0
+  mosquitto:
+  - apiVersion: v2
+    appVersion: 2.0.3
+    created: "2020-12-22T02:21:34.919444949Z"
+    description: Eclipse Mosquitto - An open source MQTT broker
+    digest: 0bde5773022847573781aea9a88b7d34afac87846d9091f56fe6576a59207771
+    home: https://mosquitto.org/
+    icon: https://mosquitto.org/images/mosquitto-text-side-28.png
+    keywords:
+    - message queue
+    - MQTT
+    - mosquitto
+    - eclipse-iot
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: mosquitto
+    sources:
+    - https://github.com/eclipse/mosquitto
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/mosquitto-1.0.0/mosquitto-1.0.0.tgz
+    version: 1.0.0
+  nextcloud:
+  - apiVersion: v2
+    appVersion: 20.0.3
+    created: "2020-12-22T02:21:35.145341933Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://charts.helm.sh/stable
+      version: ~7.1.0
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.helm.sh/stable
+      version: ~10.0.1
+    description: A file sharing server that puts the control and security of your own data back into your hands.
+    digest: b3d5050ef3eb6b6ca10930dc0deaff94e4c578c04df3b3008e4d7299322d5606
+    home: https://nextcloud.com/
+    icon: https://cdn.rawgit.com/docker-library/docs/defa5ffc7123177acd60ddef6e16bddf694cc35f/nextcloud/logo.svg
+    keywords:
+    - nextcloud
+    - storage
+    - http
+    - web
+    - php
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: nextcloud
+    sources:
+    - https://github.com/nextcloud/docker
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/nextcloud-1.11.0/nextcloud-1.11.0.tgz
+    version: 1.11.0
+  pihole:
+  - apiVersion: v1
+    appVersion: 4.4.0
+    created: "2020-12-22T02:21:35.39535394Z"
+    description: Pi-hole® - Network-wide Ad Blocking - A black hole for Internet advertisements
+    digest: b6ba4159bf702b261b6d118c4d656411b520804244b141ee391e0df6d1c28cef
+    icon: https://piholenet.b-cdn.net/wp-content/uploads/2016/12/Vortex-R.png
+    maintainers:
+    - email: helm@gavinmogan.com
+      name: Gavin Mogan
+    name: pihole
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/pihole-0.3.1/pihole-0.3.1.tgz
+    version: 0.3.1
+  radarr:
+  - apiVersion: v2
+    appVersion: 3.0.1.4259-ls88
+    created: "2020-12-22T02:21:35.611139811Z"
+    description: A fork of Sonarr to work with movies à la Couchpotato.
+    digest: 64f2d1929faf76526db30fafd189a680c9ac7b5fdffe3692cede4c9f9c34dd2b
+    home: https://radarr.video
+    icon: https://raw.githubusercontent.com/Radarr/Radarr/aphrodite/Logo/256.png
+    keywords:
+    - p2p
+    - movies
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: radarr
+    sources:
+    - https://github.com/Radarr/Radarr
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/radarr-2.2.0/radarr-2.2.0.tgz
+    version: 2.2.0
+  sonarr:
+  - apiVersion: v2
+    appVersion: 3.0.4.1026-ls12
+    created: "2020-12-22T02:21:35.833099732Z"
+    description: Sonarr (formerly NZBdrone) is a PVR for usenet and bittorrent users. It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available
+    digest: f324fb5dad07e57471ea8fa81ac23c10816999d90878cfbff134b476d81eb601
+    home: https://sonarr.tv
+    icon: https://raw.githubusercontent.com/Sonarr/Sonarr/phantom-develop/Logo/256.png
+    keywords:
+    - p2p
+    - tv
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: sonarr
+    sources:
+    - https://github.com/Sonarr/Sonarr
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/sonarr-2.1.0/sonarr-2.1.0.tgz
+    version: 2.1.0
+  transmission:
+  - apiVersion: v2
+    appVersion: 3.00-r0-ls70
+    created: "2020-12-22T02:21:36.069090771Z"
+    description: A torrent downloader
+    digest: 492fa9dd34b5096c4ca29606334b14bdb8e32ff2dc105cf0e5d73f0c099e0dd9
+    home: https://transmissionbt.com
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - p2p
+    - torrent
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: transmission
+    sources:
+    - https://github.com/transmission/transmission
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/transmission-2.1.0/transmission-2.1.0.tgz
+    version: 2.1.0
+  unifi:
+  - apiVersion: v1
+    appVersion: 5.12.66
+    created: "2020-12-22T02:21:36.293225114Z"
+    description: Ubiquiti Network's Unifi Controller
+    digest: b6e9d3c7f33612da1fa89979c0169d4a8d21cd0f16fc7afdced5a8f286fa82bf
+    home: https://github.com/goofball222/unifi
+    icon: https://blog.ubnt.com/wp-content/uploads/2016/10/unifi-app-logo.png
+    keywords:
+    - ubiquiti
+    - unifi
+    - mongodb
+    maintainers:
+    - email: jeff@billimek.com
+      name: billimek
+    - email: mike@quadra-tec.net
+      name: mcronce
+    name: unifi
+    sources:
+    - https://github.com/goofball222/unifi
+    - https://github.com/helm/charts/tree/master/stable/unifi
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/unifi-0.9.3/unifi-0.9.3.tgz
+    version: 0.9.3
+  whoami:
+  - apiVersion: v2
+    appVersion: 1.0.3
+    created: "2020-12-22T02:21:36.50954767Z"
+    description: A simple whoami chart
+    digest: 7523697a3ea6fd9911856a9bcfe777c628512907dde4e817fcc3bf75a4793110
+    keywords:
+    - whoami
+    - ingress
+    - test
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: whoami
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/whoami-1.0.0/whoami-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-12-22T02:21:32.826664492Z"
