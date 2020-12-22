@@ -2,7 +2,7 @@
 {{- $fullName := include "home-assistant.fullname" . -}}
 {{- $servicePort := .Values.configurator.service.port -}}
 {{- $ingressPath := .Values.configurator.ingress.path -}}
-apiVersion: {{ include "home-assistant.apiVersion" . }}
+apiVersion: {{ include "home-assistant.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}-configurator
