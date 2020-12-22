@@ -2,7 +2,7 @@ apiVersion: v2
 name: local-path-provisioner
 type: application
 description: Use HostPath for persistent local storage with Kubernetes
-appVersion: 0.0.19
+appVersion: "v0.0.19"
 version: 1.0.0
 keywords:
   - storage
