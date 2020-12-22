@@ -172,6 +172,26 @@ entries:
   minecraft:
   - apiVersion: v2
     appVersion: 1.11.0
+    created: "2020-12-22T02:49:39.832770445Z"
+    description: Minecraft server
+    digest: f3061f25e0f9704655bf450d4cea8090be6f174ed6e557fc2378caa9c97fef35
+    home: https://minecraft.net/
+    keywords:
+    - game
+    - server
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: minecraft
+    sources:
+    - https://hub.docker.com/r/itzg/minecraft-server/~/dockerfile/
+    - https://github.com/itzg/dockerfiles
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/minecraft-2.1.2/minecraft-2.1.2.tgz
+    version: 2.1.2
+  - apiVersion: v2
+    appVersion: 1.11.0
     created: "2020-12-22T02:40:16.31250698Z"
     description: Minecraft server
     digest: cf97e0c0e7d5ffa6d102557ce003eda687989992be44321e749bec6b721766b6
