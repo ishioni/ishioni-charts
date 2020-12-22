@@ -3,7 +3,7 @@ name: minecraft
 type: application
 description: Minecraft server
 appVersion: 1.11.0
-version: 2.1.1
+version: 2.1.2
 keywords:
 - game
 - server

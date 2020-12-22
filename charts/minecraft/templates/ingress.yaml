@@ -37,7 +37,7 @@ spec:
               service:
                 name: {{ $fullName }}-dynmap
                 port:
-                  number: {{ $svcPort }}
+                  name: {{ $svcPort }}
             {{- else }}
               serviceName: {{ $fullName }}-dynmap
               servicePort: {{ $svcPort }}
