@@ -60,6 +60,33 @@ entries:
   home-assistant:
   - apiVersion: v2
     appVersion: 2020.12.1
+    created: "2020-12-22T02:32:02.955049453Z"
+    description: Home Assistant
+    digest: bc8671e6d506d75d5fb1c33c749ffe2b653bd153484e5cf23361349f7bbdbb5b
+    home: https://github.com/home-assistant/home-assistant
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Home_Assistant_Logo.svg/519px-Home_Assistant_Logo.svg.png
+    keywords:
+    - home-assistant
+    - hass
+    - homeassistant
+    maintainers:
+    - email: jeff@billimek.com
+      name: billimek
+    - email: philipp.hellmich@bertelsmann.de
+      name: runningman84
+    - email: helm@movishell.pl
+      name: ishioni
+    name: home-assistant
+    sources:
+    - https://github.com/home-assistant/home-assistant
+    - https://github.com/danielperna84/hass-configurator
+    - https://github.com/cdr/code-server
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/home-assistant-0.14.1/home-assistant-0.14.1.tgz
+    version: 0.14.1
+  - apiVersion: v2
+    appVersion: 2020.12.1
     created: "2020-12-22T02:21:33.840213326Z"
     description: Home Assistant
     digest: 0ffc2b9a929a0049c16f65079de0e67289f173c7eef69e622eaab7bc0d8a6ad6
