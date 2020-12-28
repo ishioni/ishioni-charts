@@ -3,10 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "whoami.fullname" . }}
   labels:
-    app: {{ template "whoami.name" . }}
-    chart: {{ template "whoami.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+{{ include "whoami.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
