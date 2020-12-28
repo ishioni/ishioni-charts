@@ -472,6 +472,23 @@ entries:
   whoami:
   - apiVersion: v2
     appVersion: 1.0.3
+    created: "2020-12-28T14:37:56.068022817Z"
+    description: A simple whoami chart
+    digest: 730925caf70a2a4140cfba7629430c148c5989d80c5527bc87756d11fce0cbb1
+    keywords:
+    - whoami
+    - ingress
+    - test
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: whoami
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/whoami-1.0.2/whoami-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.0.3
     created: "2020-12-28T14:30:48.372153397Z"
     description: A simple whoami chart
     digest: 8155accc38cef5dbe676af66f9b0fac233e9df9c7b3e0747157dac4c120878b5
