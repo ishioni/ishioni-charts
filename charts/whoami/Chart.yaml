@@ -2,8 +2,8 @@ apiVersion: v2
 name: whoami
 type: application
 description: A simple whoami chart
-appVersion: 1.0.3
-version: 1.0.3
+appVersion: v1.0.1
+version: 1.0.4
 keywords:
   - whoami
   - ingress
