@@ -3,7 +3,7 @@ name: authelia
 type: application
 description: A full-featured authentication server
 appVersion: "v3.16.2"
-version: 1.0.3
+version: 1.0.4
 keywords:
   - security
   - totp
