@@ -3,6 +3,37 @@ entries:
   authelia:
   - apiVersion: v2
     appVersion: v3.16.2
+    created: "2021-01-15T01:11:18.749762513Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.helm.sh/stable
+      version: ~7.8.10
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.helm.sh/stable
+      version: ~10.5.7
+    description: A full-featured authentication server
+    digest: d66a66785a89c3ff39bd6fa5a6aba39a2c3b753324c11ce4e208f9ea15777d00
+    home: https://www.authelia.com
+    icon: https://raw.githubusercontent.com/clems4ever/authelia/master/images/authelia.logo.png
+    keywords:
+    - security
+    - totp
+    - authentication
+    - ldap
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: authelia
+    sources:
+    - https://github.com/clems4ever/authelia
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/authelia-1.0.4/authelia-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    appVersion: v3.16.2
     created: "2020-12-22T10:22:20.309588191Z"
     dependencies:
     - condition: mongodb.enabled
