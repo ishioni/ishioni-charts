@@ -2,8 +2,8 @@ apiVersion: v2
 name: transmission
 type: application
 description: A torrent downloader
-appVersion: 3.00-r0-ls70
-version: 2.1.0
+appVersion: 3.00-r0-ls75
+version: 2.1.1
 keywords:
   - p2p
   - torrent
