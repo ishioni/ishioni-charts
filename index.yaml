@@ -489,6 +489,26 @@ entries:
     version: 2.1.0
   transmission:
   - apiVersion: v2
+    appVersion: 3.00-r0-ls75
+    created: "2021-01-31T15:42:51.651148623Z"
+    description: A torrent downloader
+    digest: 9be73839c67648e50552866d92984003442fbdbf021adadc0a9a2a7ffe14ade2
+    home: https://transmissionbt.com
+    icon: https://raw.githubusercontent.com/transmission/transmission/master/web/images/webclip-icon.png
+    keywords:
+    - p2p
+    - torrent
+    maintainers:
+    - email: helm@movishell.pl
+      name: ishioni
+    name: transmission
+    sources:
+    - https://github.com/transmission/transmission
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/transmission-2.1.1/transmission-2.1.1.tgz
+    version: 2.1.1
+  - apiVersion: v2
     appVersion: 3.00-r0-ls70
     created: "2020-12-22T02:21:36.069090771Z"
     description: A torrent downloader
