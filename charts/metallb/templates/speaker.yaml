@@ -1,4 +1,4 @@
-{{- if .Values.controller.enabled }}
+{{- if .Values.speaker.enabled }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -17,7 +17,7 @@ spec:
       annotations:
         {{- if .Values.prometheus.scrapeAnnotations }}
         prometheus.io/scrape: "true"
-        prometheus.io/port: "7472"
+        prometheus.io/port: "{{ .Values.prometheus.metricsPort }}"
         {{- end }}
         {{- with .Values.podAnnotations }}
           {{- toYaml . | nindent 8 }}
@@ -41,13 +41,9 @@ spec:
         imagePullPolicy: {{ .Values.speaker.image.pullPolicy }}
         {{- end }}
         args:
-        - --port=7472
+        - --port={{ .Values.prometheus.metricsPort }}
         - --config={{ template "metallb.configMapName" . }}
         env:
-        - name: METALLB_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
         - name: METALLB_NODE_NAME
           valueFrom:
             fieldRef:
@@ -63,11 +59,8 @@ spec:
               fieldPath: status.podIP
         - name: METALLB_ML_LABELS
           value: "app.kubernetes.io/name={{ include "metallb.name" . }},app.kubernetes.io/component=speaker"
-        {{ if .Values.speaker.mlBindPort }}
-        # needed when another software is also using memberlist / port 7946
         - name: METALLB_ML_BIND_PORT
-          value: {{ .Values.speaker.mlBindPort }}
-        {{- end }}
+          value: "{{ .Values.speaker.memberlist.mlBindPort }}"
         - name: METALLB_ML_SECRET_KEY
           valueFrom:
             secretKeyRef:
@@ -76,7 +69,15 @@ spec:
         {{- end }}
         ports:
         - name: metrics
-          containerPort: 7472
+          containerPort: {{ .Values.prometheus.metricsPort }}
+        {{- if .Values.speaker.memberlist.enabled }}
+        - name: memberlist-tcp
+          containerPort: {{ .Values.speaker.memberlist.mlBindPort }}
+          protocol: TCP
+        - name: memberlist-udp
+          containerPort: {{ .Values.speaker.memberlist.mlBindPort }}
+          protocol: UDP
+        {{- end }}
         {{- if .Values.speaker.livenessProbe.enabled }}
         livenessProbe:
           httpGet:
@@ -125,6 +126,7 @@ spec:
       {{- if .Values.speaker.tolerateMaster }}
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+        operator: Exists
       {{- end }}
       {{- with .Values.speaker.tolerations }}
         {{- toYaml . | nindent 6 }}

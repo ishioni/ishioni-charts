@@ -40,6 +40,6 @@ deny[msg] {
 # validate tolerations include the builtins when custom ones are provided
 deny[msg] {
   input.kind == "DaemonSet"
-  not input.spec.template.spec.tolerations[0] == { "key": "node-role.kubernetes.io/master", "effect": "NoSchedule" }
+  not input.spec.template.spec.tolerations[0] == { "key": "node-role.kubernetes.io/master", "effect": "NoSchedule", "operator": "Exists" }
   msg = "controller tolerations does not include node-role.kubernetes.io/master:NoSchedule"
 }

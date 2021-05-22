@@ -17,7 +17,7 @@ spec:
       annotations:
         {{- if .Values.prometheus.scrapeAnnotations }}
         prometheus.io/scrape: "true"
-        prometheus.io/port: "7472"
+        prometheus.io/port: "{{ .Values.prometheus.metricsPort }}"
         {{- end }}
         {{- with .Values.podAnnotations }}
           {{- toYaml . | nindent 8 }}
@@ -43,22 +43,18 @@ spec:
         imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
         {{- end }}
         args:
-        - --port=7472
+        - --port={{ .Values.prometheus.metricsPort }}
         - --config={{ template "metallb.configMapName" . }}
         env:
-        - name: METALLB_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        {{- if .Values.speaker.memberlist.enabled }}
+        {{- if and .Values.speaker.enabled .Values.speaker.memberlist.enabled }}
         - name: METALLB_ML_SECRET_NAME
           value: {{ include "metallb.secretName" . }}
-        {{- end }}
         - name: METALLB_DEPLOYMENT
           value: {{ template "metallb.fullname" . }}-controller
+        {{- end }}
         ports:
         - name: metrics
-          containerPort: 7472
+          containerPort: {{ .Values.prometheus.metricsPort }}
         {{- if .Values.controller.livenessProbe.enabled }}
         livenessProbe:
           httpGet:
