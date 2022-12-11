@@ -271,7 +271,8 @@ entries:
   - apiVersion: v2
     appVersion: v0.9.5
     created: "2020-12-22T02:21:34.493328082Z"
-    description: A network load-balancer implementation for Kubernetes using standard routing protocols
+    description: A network load-balancer implementation for Kubernetes using standard
+      routing protocols
     digest: ad53af7b4942608626fd3a0ab62e0329599cb6931aa5c790a894edc0349fefca
     home: https://metallb.universe.tf
     icon: https://metallb.universe.tf/images/logo/metallb-white.png
@@ -379,7 +380,8 @@ entries:
       name: redis
       repository: https://charts.helm.sh/stable
       version: ~10.5.7
-    description: A file sharing server that puts the control and security of your own data back into your hands.
+    description: A file sharing server that puts the control and security of your
+      own data back into your hands.
     digest: 146cd4ded6a6c5005782e65c2778189d00d3a4a7516ab0997556c1df10233268
     home: https://nextcloud.com/
     icon: https://cdn.rawgit.com/docker-library/docs/defa5ffc7123177acd60ddef6e16bddf694cc35f/nextcloud/logo.svg
@@ -411,7 +413,8 @@ entries:
       name: redis
       repository: https://charts.helm.sh/stable
       version: ~10.0.1
-    description: A file sharing server that puts the control and security of your own data back into your hands.
+    description: A file sharing server that puts the control and security of your
+      own data back into your hands.
     digest: b3d5050ef3eb6b6ca10930dc0deaff94e4c578c04df3b3008e4d7299322d5606
     home: https://nextcloud.com/
     icon: https://cdn.rawgit.com/docker-library/docs/defa5ffc7123177acd60ddef6e16bddf694cc35f/nextcloud/logo.svg
@@ -431,6 +434,29 @@ entries:
     urls:
     - https://github.com/ishioni/ishioni-charts/releases/download/nextcloud-1.11.0/nextcloud-1.11.0.tgz
     version: 1.11.0
+  ocis:
+  - apiVersion: v2
+    appVersion: 2.0.0
+    created: "2022-12-11T12:51:54.267898891Z"
+    description: ownCloud Infinite Scale (oCIS) Helm chart
+    digest: cdd9506ef481be5ee62695e989f92a5999a1fa5ffb49be13a98e9e77ac0affc9
+    keywords:
+    - owncloud
+    - ocis
+    kubeVersion: ~1.23.0 || ~1.24.0 || ~1.25.0
+    maintainers:
+    - email: devops@owncloud.com
+      name: ownCloud GmbH
+      url: https://owncloud.com
+    name: ocis
+    sources:
+    - https://github.com/owncloud/ocis-charts
+    - https://github.com/owncloud/ocis
+    - https://github.com/cs3org/reva
+    type: application
+    urls:
+    - https://github.com/ishioni/ishioni-charts/releases/download/ocis-0.1.0/ocis-0.1.0.tgz
+    version: 0.1.0
   pihole:
   - apiVersion: v1
     appVersion: 4.4.0
@@ -470,7 +496,11 @@ entries:
   - apiVersion: v2
     appVersion: 3.0.4.1026-ls12
     created: "2020-12-22T02:21:35.833099732Z"
-    description: Sonarr (formerly NZBdrone) is a PVR for usenet and bittorrent users. It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available
+    description: Sonarr (formerly NZBdrone) is a PVR for usenet and bittorrent users.
+      It can monitor multiple RSS feeds for new episodes of your favorite shows and
+      will grab, sort and rename them. It can also be configured to automatically
+      upgrade the quality of files already downloaded when a better quality format
+      becomes available
     digest: f324fb5dad07e57471ea8fa81ac23c10816999d90878cfbff134b476d81eb601
     home: https://sonarr.tv
     icon: https://raw.githubusercontent.com/Sonarr/Sonarr/phantom-develop/Logo/256.png
@@ -638,4 +668,4 @@ entries:
     urls:
     - https://github.com/ishioni/ishioni-charts/releases/download/whoami-1.0.0/whoami-1.0.0.tgz
     version: 1.0.0
-generated: "2020-12-22T02:21:32.826664492Z"
+generated: "2022-12-11T12:51:54.267928691Z"
